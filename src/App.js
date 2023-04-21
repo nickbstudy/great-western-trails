@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      GWT!
+      GWT! Now working on github...
     </div>
   );
 }
