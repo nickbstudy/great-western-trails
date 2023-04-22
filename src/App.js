@@ -1,13 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Details from './screens/Details';
+import Randomizer from './screens/Randomizer';
+import Scorecard from './screens/Scorecard';
+
 
 function App() {
   return (
-    <div className="App">
-      GWT! Now working on github...
-    </div>
+    <>
+      <Router>
+          <div className="container">
+            <Routes>
+              <Route path='/' element={<Details />} />
+              <Route path='/randomizer' element={<Randomizer />} />
+              <Route path='/scorecard' element={<Scorecard />} />
+            </Routes>
+          </div>
+      </Router>
+    </>
   );
 }
 
