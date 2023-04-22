@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import { useDispatch } from 'react-redux'
+import { setPlayers, setEdition, toggleRandomized, setNeutrals, setPlayerBuildings } from '../features/game/gameSlice'
 
 
 function Details() {
@@ -9,7 +11,11 @@ function Details() {
     const [p3, setP3] = useState('')
     const [p4, setP4] = useState('')
     const [randomize, setRandomize] = useState('')
+    
+    let neutralOrder = []
+    let playerSides = []
 
+    const dispatch = useDispatch();
 
     const updateName = e => {
         switch(e.target.id) {
@@ -36,18 +42,109 @@ function Details() {
         if (e.target.id === "2" || e.target.id === "gwta-div" || e.target.id === "gwta-text") {
             setGame(2);
         }
-        console.log(e.target)
     }
 
     const toggleRandom = () => {
         setRandomize(!randomize)
+        dispatch(toggleRandomized())
     }
 
     const handlePlay = () => {
+
+        if (game === 0) {
+            alert("Please select a game")
+            return;
+        }
+        if (p1 === "" && p2 === "" && p3 === "" && p4 === "") {
+            alert("Enter at least one player");
+            console.log('nobody playing')
+            return;
+        }
+        
+
         if (randomize) {
 
+            // let neutralOrder = []
+            // let playerSides = []
+            // gwt = A-G (7), 12 player buildings
+            // gwt:a = A-H  (8), 10 player buildings
+
+            // GWT
+            
+            if (game === 1) {
+
+                let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+                for (let i = 7; i >= 1; i--) {
+                    const thisLetter = getRndInteger(i)
+                    neutralOrder.push(letters[thisLetter])
+                    letters.splice(thisLetter, 1)
+                }
+                for (let i = 1; i <= 12; i++) {
+                    const chosen = Math.round(Math.random());
+                    // console.log(chosen)
+                    if(chosen === 1) {
+                        playerSides.push('A')
+                    } else {
+                        playerSides.push('B')
+                    }
+                }
+                
+
+            }
+
+            // GWT: A
+            if (game === 2) {
+                let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+                for (let i = 8; i >= 1; i--) {
+                    const thisLetter = getRndInteger(i)
+                    neutralOrder.push(letters[thisLetter])
+                    letters.splice(thisLetter, 1)
+                }
+                for (let i = 1; i <= 10; i++) {
+                    const chosen = Math.round(Math.random());
+                    // console.log(chosen)
+                    if(chosen === 1) {
+                        playerSides.push('A')
+                    } else {
+                        playerSides.push('B')
+                    }
+                }
+            }      
         }
+
+        // Commit all info to redux
+
+        let playerCount = 0;
+        let playerNames = [];
+
+        if (p1 !== "") {
+            playerCount++;
+            playerNames.push(p1)
+        }
+        if (p2 !== "") {
+            playerCount++;
+            playerNames.push(p2)
+        }
+        if (p3 !== "") {
+            playerCount++;
+            playerNames.push(p3)
+        }
+        if (p4 !== "") {
+            playerCount++;
+            playerNames.push(p4)
+        }
+
+        dispatch(setPlayers(playerNames))
+        dispatch(setEdition(game))
+        dispatch(setNeutrals(neutralOrder))
+        dispatch(setPlayerBuildings(playerSides))
+        
+
     }
+
+    function getRndInteger(max) {
+        return Math.floor(Math.random() * max)
+      }
 
   return (
     <div className="gameForm">
@@ -69,7 +166,7 @@ function Details() {
             </div>
         </div>
         <div className="names">
-            <div class="namesHeader">Enter all player names:</div>
+            <div className="namesHeader">Enter all player names:</div>
             <div className="inputs">
                 <input type="text" className="nameInput" name="player1" id="player1" value={p1} onChange={updateName}/>
                 <input type="text" className="nameInput" name="player2" id="player2" value={p2} onChange={updateName}/>
@@ -79,9 +176,9 @@ function Details() {
         </div>
         <div className="randomize">
             <input type="checkbox" className="randomizeCheck" name="random" id="random" onClick={toggleRandom} />
-            <label for="random" className="randomizeLabel">Randomize building orders & player sides</label>
+            <label htmlFor="random" className="randomizeLabel">Randomize building orders & player sides</label>
         </div>
-        <button class="btnPlay" onClick={handlePlay}>Play game</button>
+        <button className="btnPlay" onClick={handlePlay}>Play game</button>
     </div>
   )
 }
