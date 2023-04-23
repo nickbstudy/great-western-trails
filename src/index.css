@@ -25,7 +25,7 @@ background-image: url("./images/bg-tan2.jpg");
   align-items: center;
 }
 
-.whichGame {
+.gameHeader {
   margin-top: 20px;
   font-size: 2rem;
   font-weight: 600;
@@ -113,8 +113,89 @@ background-image: url("./images/bg-tan2.jpg");
   padding: 10px 20px; 
 }
 
+/* ----- Randomizer styles ----- */
+
+.randomizerPage{
+  margin-left: 20px;
+}
+
+.displayed {
+  font-size: 50px;
+}
+
+.grayBackground {
+  width: 116px;
+  height: 116px;
+  display: flex;
+  background-color: #b4b1a3;
+  border: 2px solid #a7a292;
+  border-radius: 5px;
+  justify-content: center;
+  font-family: sans-serif;
+  align-items: center;
+  border: 2px solid #a7a292;
+  box-shadow: 2px 2px 3px #414140;
+  margin: 3px;
+}
+.wrapper {
+  overflow:hidden;
+  width:100px;
+  height:100px;
+  background-image: url("./images/bg-tan2.jpg");
+}
+div.inverted-corner {
+  box-sizing:border-box;
+  position: relative;
+  background: linear-gradient(#8db963 0%, #8db963 30%, #efe9b4 70%, #efe9b4 1000% );
+  height: 100px;
+  width: 100px;
+  border: 5px solid #7f754a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.top, .bottom {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+}
+.top:before, .top:after, .bottom:before, .bottom:after{
+  content:" ";
+  position:absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #b4b1a3;
+  border: 4px solid #7f754a;
+  border-radius: 20px; 
+}
+.top:before {
+  top:-17px;
+  left:-17px;
+}
+.top:after {
+ top: -17px;
+ right: -17px;
+  box-shadow: inset 1px 1px 1px grey;
+}
+.bottom:before {
+  bottom:-17px;
+  left:-17px;
+}
+.bottom:after {
+ bottom: -17px;
+ right: -17px; 
+ box-shadow: inset 1px 1px 1px grey;
+}
+
+.neutralOrder {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 @media only screen and (max-width: 600px) {
   .gameName {
-    font-size: 1.05rem;
+    font-size: 1.05rem; 
   }
 }

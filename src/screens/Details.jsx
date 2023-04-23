@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { setPlayers, setEdition, toggleRandomized, setNeutrals, setPlayerBuildings } from '../features/game/gameSlice'
 
 
@@ -10,12 +11,13 @@ function Details() {
     const [p2, setP2] = useState('')
     const [p3, setP3] = useState('')
     const [p4, setP4] = useState('')
-    const [randomize, setRandomize] = useState('')
+    const [randomize, setRandomize] = useState(false)
     
     let neutralOrder = []
     let playerSides = []
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const updateName = e => {
         switch(e.target.id) {
@@ -139,6 +141,12 @@ function Details() {
         dispatch(setNeutrals(neutralOrder))
         dispatch(setPlayerBuildings(playerSides))
         
+        // Navigate to randomizer or scorecard
+        if(randomize) {
+            navigate('/randomizer')
+        } else {
+            navigate('/scorecard')
+        }
 
     }
 
@@ -149,7 +157,7 @@ function Details() {
   return (
     <div className="gameForm">
         <div className="games">
-            <div className="whichGame">Which version are you playing?</div>
+            <div className="gameHeader">Which version are you playing?</div>
             <div className="gamesBoxes">
                 <div className={game !== 1 ? "gwt game" : "gwt game selected"} id="gwt-div" onClick={handleGame}>
                     <button className="btnGame" id="gwt" onClick={handleGame}><img src={require('../images/boxes/GWT-2E.jpg')} id="1" className="coverImage" alt="Great Western Trail 2nd Edition" /></button><br />
