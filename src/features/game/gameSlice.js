@@ -24,11 +24,13 @@ export const gameSlice = createSlice({
             state.randomized = !state.randomized;
         },
         setNeutrals: (state, action) => {
+            state.neutrals.length = 0;
             action.payload.forEach(element => {
                 state.neutrals.push(element)
             });
         },
         setPlayerBuildings: (state, action) => {
+            state.playerBuildings.length = 0;
             action.payload.forEach(element => {
                 state.playerBuildings.push(element)
             });
@@ -42,4 +44,4 @@ export const { setPlayers, setEdition, toggleRandomized, setNeutrals, setPlayerB
 export default gameSlice.reducer;
 
 export const players = (state) => state.game.players
-export const game = (state) => state.game.game
+export const game = (state) => state.game.edition

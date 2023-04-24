@@ -85,9 +85,9 @@ function Details() {
                     const chosen = Math.round(Math.random());
                     // console.log(chosen)
                     if(chosen === 1) {
-                        playerSides.push('A')
+                        playerSides.push('a')
                     } else {
-                        playerSides.push('B')
+                        playerSides.push('b')
                     }
                 }
                 
@@ -106,9 +106,9 @@ function Details() {
                     const chosen = Math.round(Math.random());
                     // console.log(chosen)
                     if(chosen === 1) {
-                        playerSides.push('A')
+                        playerSides.push('a')
                     } else {
-                        playerSides.push('B')
+                        playerSides.push('b')
                     }
                 }
             }      
@@ -152,7 +152,7 @@ function Details() {
 
     function getRndInteger(max) {
         return Math.floor(Math.random() * max)
-      }
+    }
 
   return (
     <div className="gameForm">
